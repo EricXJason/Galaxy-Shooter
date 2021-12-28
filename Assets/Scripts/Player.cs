@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        //玩家初始位置
         transform.position = new Vector3(0, -3.5f, 0);
     }
 

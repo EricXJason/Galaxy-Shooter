@@ -7,13 +7,13 @@ public class Player : MonoBehaviour
     float HorizontalInput;
     float VerticalInput;
     public float Speed = 10f;
-    public float LimitX = 8f;
-    public float LimitY = 4f;
-    public GameObject Laser;
-    public string Test = "Success";
-    public float LaserOffset = 1f;//子彈偏移本體的距離
-    public float FireRate = 0.1f;//越低冷卻時間越短
+    [SerializeField] float LimitX = 8f;
+    [SerializeField] float LimitY = 4f;
+    [SerializeField] GameObject Laser;
+    [SerializeField] float LaserOffset = 1f;//子彈偏移本體的距離
+    [SerializeField] float FireRate = 0.1f;//越低冷卻時間越短
     float CanFire = 0f;
+    [SerializeField] int Lives = 3;
 
     void Start()
     {
@@ -61,12 +61,22 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, LimitY * -1, LimitY),0); 
     }
 
-    public void FireLaser()
+    void FireLaser()
     {
         Vector3 LaserPosition = new Vector3(transform.position.x, transform.position.y + LaserOffset, transform.position.z);
         //定義射擊速度-藉由不斷增將FireRate加到CanFire變數中可以定義下可發射的時間
         CanFire = Time.time + FireRate;
         //Quaternion.identity為(0, 0, 0)
         Instantiate(Laser, LaserPosition, Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        Lives -= 1;
+        print("Lives "+Lives);
+        if (Lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

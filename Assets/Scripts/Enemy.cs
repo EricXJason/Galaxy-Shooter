@@ -19,21 +19,7 @@ public class Enemy : MonoBehaviour
         //DestoryEnemy();
     }
 
-    /*void OnCollisionEnter(Collision other)
-    {
-        //接觸玩家後直接擊殺玩家
-        /*if(other.gameObject.tag == "Player")
-        {
-            Destroy(other.gameObject);
-        }
-        if(other.gameObject.tag == "Laser")
-        {
-            Destroy(this.gameObject);
-            print("hit");
-        }
-    }*/
-
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         print("hit " + other.name);
         if(other.tag == "Player")
@@ -44,8 +30,8 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
-            //銷毀玩家(碰撞物)
-            //Destroy(other.gameObject);
+            //銷毀自身(敵人)
+            Destroy(this.gameObject);
         }
         if(other.tag == "Laser")
         {
@@ -56,12 +42,12 @@ public class Enemy : MonoBehaviour
         }
         
     }
-    void Movement()
+    void Movement()//敵人飛船的向下移動
     {
         transform.Translate(0, Speed * Time.deltaTime *  -1, 0);
     }
 
-    void DestoryEnemy()
+    void DestoryEnemy()//超過範圍消毀自身
     {
         if (transform.position.y <= -8f)
         {
@@ -69,7 +55,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void ReSpawn()
+    void ReSpawn()//超過範圍後於重生(X軸為隨機)
     {
         float RandomX = Random.Range(-8f, 8f);
         if(transform.position.y <= -8f)

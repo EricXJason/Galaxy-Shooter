@@ -24,7 +24,6 @@ public class SpawnManager : MonoBehaviour
         /*wait 1 frame
         yield return null;
         //then this line called.
-        
         yield return new WaitForSeconds(5.0f);
         then this line called.*/
 
